@@ -1,34 +1,79 @@
 @extends('layouts.app', ['activePage' => 'produto-management', 'titlePage' => __('Produto')])
 
 
-
 @section('content')
-    <table class="table datatable">
-        <p>oii</p>
-        <thead class=" text-primary">
-            <th>
-                ID
-            </th>
-            <th>
-                {{ __('Nome') }}
-            </th>
 
-            <th>
-                {{-- Aqui é para fazer a pesquisa --}}
-                {{ __('Actions') }}
-            </th>
-        </thead>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Todo List</title>
 
-        {{-- tbody é a parte da exibição dos produtos cadastrados --}}
-        <tbody>
-            {{-- <p>oiiiiiiii</p> --}}
+        <style>
+            /* info {
 
+                                                                                                                                                                                                                    } */
+            body {
+                /* background-color: #18243c; */
+                font-family: 'Montserrat', 'Avenir', 'Helvetica', 'Arial', sans-serif;
+                font-size: 16px;
+            }
+
+            #app {
+                padding: 3rem;
+                display: grid;
+                justify-content: center;
+                /* grid-template-columns: minmax(0px, 450px); */
+                grid-gap: 1rem;
+            }
+
+
+            .info {
+                color: #ececf6;
+                background-color: #2b3a4e;
+                padding: 0.5rem;
+                border-radius: 1rem;
+
+                display: grid;
+                grid-template-columns: max-content 1fr;
+                gap: 0.5rem
+            }
+
+
+
+
+            .list {
+                color: #ececf6;
+                background-color: #2b3a4e;
+                padding: 0.5rem;
+                border-radius: 1rem;
+                display: grid;
+                align-items: center;
+                grid-template-columns: minmax(max-content, max-content);
+                justify-content: start;
+                grid-gap: 0.3rem;
+            }
+
+        </style>
+    </head>
+
+
+
+    <body>
+        <div id="app">
+
+            <div class="info">
+                <div> {{ __('ID') }} </div>
+                <div> {{ __('Nome') }} </div>
+            </div>
 
             @foreach ($produtos as $produto)
-                <tr>
-                    <td>{{ $produto->id }}</td>
-                    <td>{{ $produto->nome }}</td>
-                    <td>
+                <li class="list">
+                    <div class="info">
+                        <div>{{ $produto->id }}- </div>
+                        <div>{{ $produto->nome }}</div>
+                    </div>
+                    <div> {{-- Ações --}}
+
                         <!-- botao editar -->
                         <a href="{{ route('produto.edit', $produto->id) }}">
                             <button type="button" title="{{ __('Edit') }}" class="btn btn-warning">
@@ -45,16 +90,14 @@
                             data-target="#modal-detalhes" data-id="{{ $produto->id }}" class="btn btn-danger">
                             <i class="material-icons">visibility</i>
                         </button>
-
-                    </td>
-                </tr>
+                    </div>
+                </li>
             @endforeach
 
 
-        </tbody>
-    </table>
+        </div>
+    </body>
 @endsection
-
 
 @push('js')
     <!-- Scripts Here -->

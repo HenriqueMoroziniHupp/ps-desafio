@@ -4,81 +4,77 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class Site2Controller extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
+class Site2Controller extends Controller {
+    private $produtos;
+    private $categorias;
+
+    public function __construct(Produto $produtos, Categoria $categorias) {
+        $this->produtos = $produtos;
+        $this->categorias = $categorias;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    //Preciso modificar essa rota para poder carregar minha página
+    public function index() {
+        $produtos = $this->produtos->all();
+        return view('layouts.page_templates.site');
+        // return view('produto.index', compact('produtos'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+
+    public function create() {
+        $categorias = $this->categorias->all();
+        return view('produto.crud', compact('categorias'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+
+    public function store(ProdutoRequest $request) {
+        $produto = new Produto();
+        $produto->nome = $request->input('nome');
+        $produto->preco = $request->input('preco');
+        $produto->descricao = $request->input('descricao');
+        $produto->quantidade = $request->input('quantidade');
+        $imagem = $request->file('imagem')->store('produtos', 'public');
+        $produto->imagem = $imagem;
+        $produto->categoria_id = $request->input('categoria_id');
+
+        $produto->save();
+
+        return redirect(route('produto.index'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+
+    public function show($id) {
+        $produto = $this->produtos->find($id);
+        $categoria = $this->categorias->find($produto->categoria_id);
+        $produto->categoria = $categoria->categoria;
+        return json_encode($produto);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
+
+    public function edit($id) {
+        $produto = $this->produtos->find($id);
+        $categorias = $this->categorias->all();
+        return view('produto.crud', compact('produto', 'categorias'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+
+    public function update(ProdutoRequest $request, $id) {
+        $data = $request->all();
+        $produto = $this->produtos->find($id);
+
+        if ($request->hasFile('imagem')) {
+            Storage::delete('public/' . $produto->imagem);
+            $data['imagem'] = $request->file('imagem')->store('produtos', 'public');
+        }
+        $produto->update($data);
+        return redirect(route('produto.index'));
+    }
+
+    public function destroy($id) {
+        $produto = $this->produtos->find($id);
+        Storage::drive('public')->delete($produto->imagem);
+        $produto->delete();
+
+        return redirect(route('produto.index'));
     }
 }

@@ -23,7 +23,8 @@ class ProdutoController extends Controller {
     public function index() {
         $produtos = $this->produtos->all();
         // return view('layouts.page_templates.site');
-        return view('produto.index', compact('produtos'));
+        // return view('produto.index', compact('produtos'));
+        return view('produto.index2', compact('produtos'));
     }
 
 
@@ -84,43 +85,3 @@ class ProdutoController extends Controller {
         return redirect(route('produto.index'));
     }
 }
-
-
-// class ProdutoController extends Controller {
-
-//     private $produtos;
-//     private $categorias;
-
-//     public function __construct(Categoria $categorias, Produto $produtos) {
-//         $this->categorias = $categorias;
-//         $this->produtos = $produtos;
-//     }
-
-//     public function index() {
-//         $produtos = $this->produtos->all();
-//         return view('categoria.index', compact('categorias'));
-//     }
-
-
-//     public function create() {
-//     }
-
-
-//     public function store(Request $request) {
-//     }
-
-
-//     public function show($id) {
-//     }
-
-
-//     public function edit($id) {
-//     }
-
-
-//     public function update(Request $request, $id) {
-//     }
-
-//     public function destroy($id) {
-//     }
-// }
