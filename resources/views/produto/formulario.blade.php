@@ -1,3 +1,5 @@
+{{-- FORMULARIO PARA CADASTRO DE PRODUTOS --}}
+
 {{-- Nome --}}
 
 <div class="row">

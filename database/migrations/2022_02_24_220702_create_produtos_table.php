@@ -14,12 +14,12 @@ return new class extends Migration {
         Schema::create('produtos', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('nome', 100);
-            $table->float('preço', 8, 2);
-            $table->string('descricao', 100);
+            $table->string('nome', 255);
+            $table->float('preco', 8, 2);
+            $table->text('descricao');
             $table->integer('quantidade');
             $table->binary('imagem');
-            $table->string('categoria_id');
+            $table->foreignId('categoria_id')->constrained('categorias')->onDelete('cascade');
         });
 
         //id, nome, preco, descricao, quantidade, imagem e categoria_id)

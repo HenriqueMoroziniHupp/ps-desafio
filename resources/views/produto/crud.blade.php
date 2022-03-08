@@ -5,9 +5,11 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
+                    {{-- Formulario de Cadastro --}}
                     <form id="form-member" method="POST" class="form-horizontal"
                         action="{{ isset($produto) ? route('produto.update', $produto->id) : route('produto.store') }}"
                         enctype="multipart/form-data">
+
 
                         @csrf
                         @isset($produto)

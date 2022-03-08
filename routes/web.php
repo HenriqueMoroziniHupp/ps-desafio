@@ -51,4 +51,6 @@ Route::middleware('locale')->group(function () {
             Route::put('profile/password', 'password')->name('password');
         });
     });
+
+    // Route::get('index',[])
 });

@@ -15,7 +15,7 @@ return new class extends Migration {
             //id, categoria
             $table->id();
             $table->timestamps();
-            $table->string('categoria');
+            $table->string('categoria', 128);
         });
     }
 

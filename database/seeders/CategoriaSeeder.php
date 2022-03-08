@@ -5,15 +5,14 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class CategoriaSeeder extends Seeder
-{
+class CategoriaSeeder extends Seeder {
     /**
      * Run the database seeds.
      *
      * @return void
      */
-    public function run()
-    {
+    public function run() {
         //
+        Categoria::factory()->count(30)->create();
     }
 }

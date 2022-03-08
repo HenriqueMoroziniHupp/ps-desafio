@@ -25,11 +25,15 @@
                                         <th>
                                             {{ __('Nome') }}
                                         </th>
+
                                         <th>
+                                            {{-- Aqui é para fazer a pesquisa --}}
                                             {{ __('Actions') }}
                                         </th>
                                     </thead>
+                                    {{-- tbody é a parte da exibição dos produtos cadastrados --}}
                                     <tbody>
+                                        {{-- <p>oiiiiiiii</p> --}}
                                         @foreach ($produtos as $produto)
                                             <tr>
                                                 <td>{{ $produto->id }}</td>
